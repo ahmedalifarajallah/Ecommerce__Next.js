@@ -46,7 +46,7 @@ const sliderData: SliderItem[] = [
   },
 ];
 
-const Slider = () => {
+const MainSlider = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   // Auto-rotate slides
@@ -73,7 +73,9 @@ const Slider = () => {
   };
 
   return (
-    <div className="relative w-full h-[calc(100vh-5rem)] overflow-hidden">
+    <div
+      className={`relative w-[calc(100vw*${sliderData.length})] h-[calc(100vh-5rem)] overflow-hidden`}
+    >
       {/* Slides */}
       {sliderData.map((slide, index) => (
         <div
@@ -173,4 +175,4 @@ const Slider = () => {
   );
 };
 
-export default Slider;
+export default MainSlider;

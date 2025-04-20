@@ -1,11 +1,11 @@
-import Slider from "@/components/Slider/Slider"
+import MainSlider from "@/components/Slider/MainSlider";
 
 const HomePage = () => {
   return (
-    <div className=''>
-      <Slider />
+    <div className="">
+      <MainSlider />
     </div>
-  )
-}
+  );
+};
 
-export default HomePage
+export default HomePage;
