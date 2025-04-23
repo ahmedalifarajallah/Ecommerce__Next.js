@@ -53,7 +53,7 @@ const MainSlider = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % sliderData.length);
-    }, 5000);
+    }, 3000);
 
     return () => clearInterval(interval);
   }, []);
@@ -80,7 +80,7 @@ const MainSlider = () => {
       {sliderData.map((slide, index) => (
         <div
           key={slide.id}
-          className={`absolute top-0 w-full h-full transition-all duration-500 ease-in-out flex items-center ${slide.bgColor}`}
+          className={`absolute top-0 w-full h-full transition-all duration-1000 ease-in-out flex items-center ${slide.bgColor}`}
           style={{
             transform: `translateX(${(index - currentSlide) * 100}%)`,
             zIndex: index === currentSlide ? 10 : 5,
@@ -108,7 +108,7 @@ const MainSlider = () => {
                   src={slide.imageSrc}
                   alt={slide.title}
                   fill
-                  style={{ objectFit: "contain" }}
+                  className="object-cover"
                   priority={index === 0}
                 />
               </div>

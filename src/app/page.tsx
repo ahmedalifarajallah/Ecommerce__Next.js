@@ -1,10 +1,12 @@
+import ProductsList from "@/components/Products/ProductsList";
 import MainSlider from "@/components/Slider/MainSlider";
 
 const HomePage = () => {
   return (
-    <div className="">
+    <>
       <MainSlider />
-    </div>
+      <ProductsList />
+    </>
   );
 };
 
