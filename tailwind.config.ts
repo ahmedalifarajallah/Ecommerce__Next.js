@@ -19,6 +19,9 @@ const config: Config = {
     },
 
     extend: {
+      colors: {
+        primary: 'rgb(227 76 110)', // Replace with your actual hex code
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":

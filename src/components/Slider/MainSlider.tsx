@@ -2,49 +2,11 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { sliderData } from "@/data/mainCarousel";
+import { ISliderItem } from "@/interfaces/mainSlider";
 
-// Define the interface for slider items
-interface SliderItem {
-  id: number;
-  title: string;
-  description: string;
-  buttonText: string;
-  link: string;
-  imageSrc: string;
-  bgColor: string;
-}
-
-// Create the slider data
-const sliderData: SliderItem[] = [
-  {
-    id: 1,
-    title: "Summer Collection",
-    description: "Discover our latest summer styles with up to 40% off",
-    buttonText: "Shop Now",
-    link: "/list?category=summer",
-    imageSrc: "/woman.png",
-    bgColor: "bg-rose-100",
-  },
-  {
-    id: 2,
-    title: "New Arrivals",
-    description:
-      "Be the first to shop our newest collection of premium clothing",
-    buttonText: "Explore",
-    link: "/list?category=new",
-    imageSrc: "/product.png",
-    bgColor: "bg-blue-100",
-  },
-  {
-    id: 3,
-    title: "Special Offer",
-    description: "Limited time deals on our most popular items",
-    buttonText: "View Deals",
-    link: "/list?category=deals",
-    imageSrc: "/category.png",
-    bgColor: "bg-amber-100",
-  },
-];
+// get the slider data
+const sliders: ISliderItem[] = sliderData;
 
 const MainSlider = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -52,7 +14,7 @@ const MainSlider = () => {
   // Auto-rotate slides
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % sliderData.length);
+      setCurrentSlide((prev) => (prev + 1) % sliders.length);
     }, 3000);
 
     return () => clearInterval(interval);
@@ -63,21 +25,19 @@ const MainSlider = () => {
   };
 
   const goToNextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % sliderData.length);
+    setCurrentSlide((prev) => (prev + 1) % sliders.length);
   };
 
   const goToPrevSlide = () => {
-    setCurrentSlide(
-      (prev) => (prev - 1 + sliderData.length) % sliderData.length
-    );
+    setCurrentSlide((prev) => (prev - 1 + sliders.length) % sliders.length);
   };
 
   return (
     <div
-      className={`relative w-[calc(100vw*${sliderData.length})] h-[calc(100vh-5rem)] overflow-hidden`}
+      className={`relative w-[calc(100vw*${sliders.length})] h-[calc(100vh-5rem)] overflow-hidden`}
     >
       {/* Slides */}
-      {sliderData.map((slide, index) => (
+      {sliders.map((slide, index) => (
         <div
           key={slide.id}
           className={`absolute top-0 w-full h-full transition-all duration-1000 ease-in-out flex items-center ${slide.bgColor}`}
@@ -160,7 +120,7 @@ const MainSlider = () => {
 
       {/* Dots indicators */}
       <div className="absolute bottom-8 left-0 right-0 z-20 flex justify-center gap-2">
-        {sliderData.map((_, index) => (
+        {sliders.map((_, index) => (
           <button
             key={index}
             onClick={() => goToSlide(index)}
