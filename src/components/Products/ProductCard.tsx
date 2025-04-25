@@ -26,7 +26,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           />
         </div>
       </Link>
-      <div className="my-3 flex flex-col justify-between h-full gap-2">
+      {/* product details */}
+      <div className="product-details my-3 flex flex-col justify-between h-full gap-2">
         {/* Product Name & Price */}
         <div className="product_details flex items-center justify-between font-semibold">
           <span className="product-name">{product.name}</span>

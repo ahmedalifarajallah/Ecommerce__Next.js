@@ -8,6 +8,8 @@ export const productsData = [
       "A classic slim fit white shirt made from high-quality cotton. Perfect for formal occasions or everyday wear.",
     category: "Shirts",
     sizes: ["S", "M", "L", "XL"],
+    new: false,
+    featured: true,
   },
   {
     id: 2,
@@ -18,6 +20,8 @@ export const productsData = [
       "A pair of dark blue jeans made from stretchy denim. Perfect for casual wear or dressing up.",
     category: "Jeans",
     sizes: ["28", "30", "32", "34"],
+    new: false,
+    featured: true,
   },
   {
     id: 3,
@@ -28,6 +32,8 @@ export const productsData = [
       "A stylish leather jacket made from high-quality leather. Perfect for adding a touch of edge to any outfit.",
     category: "Jackets",
     sizes: ["S", "M", "L", "XL"],
+    new: true,
+    featured: false,
   },
   {
     id: 4,
@@ -38,6 +44,8 @@ export const productsData = [
       "A basic grey t-shirt made from soft cotton. Perfect for everyday wear or layering under other tops.",
     category: "T-Shirts",
     sizes: ["S", "M", "L", "XL"],
+    new: true,
+    featured: false,
   },
   {
     id: 5,
@@ -48,5 +56,19 @@ export const productsData = [
       "A pair of black chinos made from high-quality cotton. Perfect for formal occasions or dressing up.",
     category: "Trousers",
     sizes: ["28", "30", "32", "34"],
+    new: true,
+    featured: true,
+  },
+  {
+    id: 6,
+    name: "Dark Blue Skinny Jeans",
+    price: 59.99,
+    images: ["/products/shirt2.jpg", "/products/shirt2.2.jpg"],
+    description:
+      "A pair of dark blue skinny jeans made from stretchy denim. Perfect for casual wear or dressing up.",
+    category: "Jeans",
+    sizes: ["28", "30", "32", "34"],
+    new: true,
+    featured: true,
   },
 ];

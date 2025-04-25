@@ -1,11 +1,15 @@
-import ProductsList from "@/components/Products/ProductsList";
+import CategorySection from "@/components/Category/CategorySection";
+import FeaturedProducts from "@/components/Products/FeaturedProducts";
+import NewProducts from "@/components/Products/NewProducts";
 import MainSlider from "@/components/Slider/MainSlider";
 
 const HomePage = () => {
   return (
     <>
       <MainSlider />
-      <ProductsList />
+      <FeaturedProducts />
+      <CategorySection />
+      <NewProducts />
     </>
   );
 };

@@ -4,6 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { sliderData } from "@/data/mainCarousel";
 import { ISliderItem } from "@/interfaces/mainSlider";
+import LeftArrow from "../LeftArrow";
+import RightArrow from "../RightArrow";
 
 // get the slider data
 const sliders: ISliderItem[] = sliderData;
@@ -40,7 +42,7 @@ const MainSlider = () => {
       {sliders.map((slide, index) => (
         <div
           key={slide.id}
-          className={`absolute top-0 w-full h-full transition-all duration-1000 ease-in-out flex items-center ${slide.bgColor}`}
+          className={`${slide.bgColor} absolute top-0 w-full h-full transition-all duration-1000 ease-in-out flex items-center`}
           style={{
             transform: `translateX(${(index - currentSlide) * 100}%)`,
             zIndex: index === currentSlide ? 10 : 5,
@@ -83,19 +85,7 @@ const MainSlider = () => {
         className="absolute left-4 top-1/2 transform -translate-y-1/2 z-20 bg-white/80 w-10 h-10 rounded-full flex items-center justify-center shadow-md hover:bg-white transition-colors"
         aria-label="Previous slide"
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M15 18l-6-6 6-6" />
-        </svg>
+        <LeftArrow />
       </button>
 
       <button
@@ -103,19 +93,7 @@ const MainSlider = () => {
         className="absolute right-4 top-1/2 transform -translate-y-1/2 z-20 bg-white/80 w-10 h-10 rounded-full flex items-center justify-center shadow-md hover:bg-white transition-colors"
         aria-label="Next slide"
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M9 18l6-6-6-6" />
-        </svg>
+        <RightArrow />
       </button>
 
       {/* Dots indicators */}
