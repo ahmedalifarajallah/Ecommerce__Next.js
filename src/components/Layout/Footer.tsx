@@ -1,6 +1,30 @@
 import React from "react";
 
 const Footer = () => {
+  const companyLinks: string[] = [
+    "About Us",
+    "Careers",
+    "Affiliate",
+    "Blog",
+    "Contact Us",
+  ];
+
+  const ShopLinks: string[] = [
+    "New Arrivals",
+    "Accessories",
+    "Men",
+    "All Products",
+    "Kids",
+  ];
+
+  const helpLinks: string[] = [
+    "Shipping",
+    "Returns",
+    "FAQ",
+    "Terms of Use",
+    "Privacy Policy",
+  ];
+
   return (
     <footer className="bg-gray-200 py-8 md:py-16">
       <div className="container mx-auto px-4">
@@ -14,7 +38,7 @@ const Footer = () => {
         >
           {/* Brand Column - 2fr on sm/md */}
           <div className="sm:col-span-1 md:col-span-1">
-            <h2 className="mb-4 text-lg font-semibold">AKL</h2>
+            <h2 className="mb-4 text-2xl font-semibold">AKL</h2>
             <p className="text-sm">Address: 123 Main Street, City, Country</p>
           </div>
 
@@ -22,11 +46,11 @@ const Footer = () => {
           <div className="sm:col-span-1">
             <h2 className="mb-4 text-lg font-semibold">Company</h2>
             <ul className="flex flex-col space-y-2 text-sm">
-              <li>About Us</li>
-              <li>Careers</li>
-              <li>Affiliate</li>
-              <li>Blog</li>
-              <li>Contact Us</li>
+              {companyLinks.map((item, index) => (
+                <li key={index} className="cursor-pointer">
+                  {item}
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -34,11 +58,11 @@ const Footer = () => {
           <div className="sm:col-span-1">
             <h2 className="mb-4 text-lg font-semibold">Shop</h2>
             <ul className="flex flex-col space-y-2 text-sm">
-              <li>New Arrivals</li>
-              <li>Accessories</li>
-              <li>Men</li>
-              <li>Women</li>
-              <li>All Products</li>
+              {ShopLinks.map((item, index) => (
+                <li key={index} className="cursor-pointer">
+                  {item}
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -46,11 +70,11 @@ const Footer = () => {
           <div className="sm:col-span-1">
             <h2 className="mb-4 text-lg font-semibold">Help</h2>
             <ul className="flex flex-col space-y-2 text-sm">
-              <li>Customer Service</li>
-              <li>My Account</li>
-              <li>Find A Store</li>
-              <li>Legal & Privacy</li>
-              <li>Gift Card</li>
+              {helpLinks.map((item, index) => (
+                <li key={index} className="cursor-pointer">
+                  {item}
+                </li>
+              ))}
             </ul>
           </div>
 
