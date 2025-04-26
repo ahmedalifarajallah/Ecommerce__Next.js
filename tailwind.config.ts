@@ -10,12 +10,14 @@ const config: Config = {
   theme: {
     container: {
       center: true,
-      padding: {
-        DEFAULT: "1rem", // px-4
-        md: "2rem", // px-8
-        lg: "4rem", // px-16
-        xl: "8rem", // px-32
-        "2xl": "16rem", // px-64
+      padding: "1rem", // Bootstrap-like gutter
+      screens: {
+        // Container max-widths matching Bootstrap
+        sm: "540px",
+        md: "720px",
+        lg: "960px",
+        xl: "1140px",
+        xxl: "1320px",
       },
     },
 
