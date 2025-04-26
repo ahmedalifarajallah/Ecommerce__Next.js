@@ -42,7 +42,7 @@ const MainSlider = () => {
       {sliders.map((slide, index) => (
         <div
           key={slide.id}
-          className={`${slide.bgColor} absolute top-0 w-full h-full transition-all duration-1000 ease-in-out flex items-center`}
+          className={`absolute top-0 w-full h-full transition-all duration-1000 ease-in-out flex items-center ${slide.bgColor}`}
           style={{
             transform: `translateX(${(index - currentSlide) * 100}%)`,
             zIndex: index === currentSlide ? 10 : 5,
