@@ -1,11 +1,21 @@
 import Link from "next/link";
-import React from "react";
 import Menu from "./Menu";
 import Image from "next/image";
 import SearchBar from "./SearchBar";
 import NavIcons from "./NavIcons";
+import React, { useMemo } from "react";
+import { ILink } from "@/interfaces/FooterLinkInterface";
+
+const HYPER_LINKS: ILink[] = [
+  { label: "Home", link: "/" },
+  { label: "Shop", link: "/" },
+  { label: "Deals", link: "/" },
+  { label: "About", link: "/" },
+  { label: "Contact", link: "/" },
+];
 
 const NavBar = () => {
+  const links = useMemo(() => HYPER_LINKS, []);
   return (
     <div className="h-20 container relative">
       {/* Mobile */}
@@ -24,11 +34,15 @@ const NavBar = () => {
             <div className="text-2xl tracking-wide">AKL</div>
           </Link>
           <div className="hidden lg:flex items-center justify-between gap-4">
-            <Link href={"/"}>Home</Link>
-            <Link href={"/list"}>Shop</Link>
-            <Link href={"/login"}>Deals</Link>
-            <Link href={"/login"}>About</Link>
-            <Link href={"/login"}>Contact</Link>
+            {links.map((link, index) => (
+              <Link
+                href={link.link}
+                key={index}
+                className="transition duration-300 ease-in-out hover:text-primary"
+              >
+                {link.label}
+              </Link>
+            ))}
           </div>
         </div>
         {/* Right Side */}
