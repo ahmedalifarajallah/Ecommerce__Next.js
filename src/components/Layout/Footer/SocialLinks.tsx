@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const SocialLinks = () => {
   return (
-    <div className="social-links__footer flex items-center gap-4 mt-5">
+    <div className="social-links__footer flex items-center gap-4 mt-5 py-1">
       <Link
         href="https://www.facebook.com/"
         target="_blank"

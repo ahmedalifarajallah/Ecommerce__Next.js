@@ -120,13 +120,18 @@ const Footer = () => {
         </div>
         {/* Bottom */}
         <div className="bottom-footer mt-16">
-          <div className="bottom-footer__container flex items-center justify-between">
+          <div className="bottom-footer__container flex flex-col sm:flex-row items-start md:items-center justify-between">
             {/* left */}
-            <p className="text-sm">&copy; 2025 AKL. All rights reserved.</p>
+            <div className="copyrights text-sm ">
+              <p>&copy; 2025 AKL. All rights reserved.</p>
+            </div>
             {/* Right */}
-            <div className="flex items-center flex items-center gap-8">
+            <div className="flex items-center flex items-center flex-wrap gap-2 flex-wrap sm:flex-nowrap md:gap-6 mt-2 sm:mt-0 ">
+              {/* Language */}
               <div className="language_prefer flex items-center">
-                <span className="mx-3 text-gray-600 text-sm">Language</span>
+                <span className="mx-0 sm:mx-3 text-gray-600 text-sm">
+                  Language
+                </span>
                 <select
                   name="language"
                   id="language"
@@ -138,6 +143,8 @@ const Footer = () => {
                   <option value="es">Spanish</option>
                 </select>
               </div>
+              <span className="">|</span>
+              {/* Currency */}
               <div className="currency_prefer flex items-center">
                 <span className="mx-3 text-gray-600 text-sm">Currency</span>
                 <select

@@ -31,7 +31,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         {/* Product Name & Price */}
         <div className="product_details flex items-center justify-between font-semibold">
           <span className="product-name">{product.name}</span>
-          <span className="product-price">{product.price} EGP</span>
+          <span className="product-price text-end">{product.price} EGP</span>
         </div>
         {/* Product Description */}
         <p className="product-description text-sm text-gray-700">
