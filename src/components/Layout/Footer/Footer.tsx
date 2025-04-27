@@ -76,6 +76,7 @@ const Footer = () => {
   return (
     <footer className="bg-gray-200 py-8 md:py-16">
       <div className="container mx-auto px-4">
+        {/* Top */}
         <div
           className="grid grid-cols-1 gap-8 
                       grid-cols-1 
@@ -115,6 +116,41 @@ const Footer = () => {
             </p>
             <SubscriptionForm />
             <Payments />
+          </div>
+        </div>
+        {/* Bottom */}
+        <div className="bottom-footer mt-16">
+          <div className="bottom-footer__container flex items-center justify-between">
+            {/* left */}
+            <p className="text-sm">&copy; 2025 AKL. All rights reserved.</p>
+            {/* Right */}
+            <div className="flex items-center flex items-center gap-8">
+              <div className="language_prefer flex items-center">
+                <span className="mx-3 text-gray-600 text-sm">Language</span>
+                <select
+                  name="language"
+                  id="language"
+                  className="text-sm bg-transparent"
+                >
+                  <option value="en">English</option>
+                  <option value="ar">Arabic</option>
+                  <option value="fr">French</option>
+                  <option value="es">Spanish</option>
+                </select>
+              </div>
+              <div className="currency_prefer flex items-center">
+                <span className="mx-3 text-gray-600 text-sm">Currency</span>
+                <select
+                  name="currency"
+                  id="currency"
+                  className="text-sm bg-transparent"
+                >
+                  <option value="usd">USD</option>
+                  <option value="egp">EGP</option>
+                  <option value="eur">EUR</option>
+                </select>
+              </div>
+            </div>
           </div>
         </div>
       </div>
