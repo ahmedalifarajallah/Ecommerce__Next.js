@@ -31,7 +31,15 @@ const Payments = () => {
         {imagesData.length > 0 &&
           imagesData.map((item, index) => (
             <li key={index}>
-              <Image src={item.src} alt={item.alt} width={34} height={34} />
+              <div className="relative h-4 w-8">
+                <Image
+                  src={item.src}
+                  alt={item.alt}
+                  fill
+                  sizes="34px"
+                  loading="lazy"
+                />
+              </div>
             </li>
           ))}
       </ul>
