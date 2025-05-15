@@ -15,9 +15,9 @@ const Banner = () => {
         <Image
           src="/woman.png"
           alt="Woman Image"
-          objectFit="cover"
           width={300}
           height={300}
+          style={{ objectFit: "cover" }}
         />
       </div>
     </section>

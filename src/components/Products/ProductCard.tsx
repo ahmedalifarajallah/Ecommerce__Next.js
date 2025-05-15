@@ -7,6 +7,8 @@ interface ProductCardProps {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+  const imageSizes = "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw";
+
   return (
     <div className="product-card flex flex-col justify-between">
       {/* Product Images */}
@@ -16,12 +18,14 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             src={product.images[0]}
             alt="Product-Img"
             fill
+            sizes={imageSizes}
             className="object-cover object-[top_center] absolute rounded-md z-10 hover:opacity-0 transition-opacity easy duration-500"
           />
           <Image
             src={product.images[1]}
             alt="Product-Img"
             fill
+            sizes={imageSizes}
             className="object-cover object-[top_center] absolute rounded-md "
           />
         </div>

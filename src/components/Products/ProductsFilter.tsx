@@ -35,13 +35,13 @@ const filterConfig = {
 
 const ProductsFilter = () => {
   const [filters, setFilters] = useState({
-    type: "",
-    minPrice: "",
-    maxPrice: "",
-    size: "",
-    color: "",
-    category: "",
-    sort: "",
+    product_type: "",
+    min_price: "",
+    max_price: "",
+    product_size: "",
+    product_color: "",
+    product_category: "",
+    product_sort: "",
   });
 
   const handleFilterChange = (
@@ -53,13 +53,13 @@ const ProductsFilter = () => {
 
   const handleReset = () => {
     setFilters({
-      type: "",
-      minPrice: "",
-      maxPrice: "",
-      size: "",
-      color: "",
-      category: "",
-      sort: "",
+      product_type: "",
+      min_price: "",
+      max_price: "",
+      product_size: "",
+      product_color: "",
+      product_category: "",
+      product_sort: "",
     });
   };
 
@@ -72,21 +72,24 @@ const ProductsFilter = () => {
         label="Type"
         options={filterConfig.types}
         onChange={handleFilterChange}
+        value={filters.product_type}
       />
 
       {/* Price Range */}
       <div className="flex gap-4 w-full sm:w-auto">
         <FilterInput
-          id="min-price"
-          name="min-price"
+          id="min_price"
+          name="min_price"
           placeholder="Min Price"
           onChange={handleFilterChange}
+          value={filters.min_price}
         />
         <FilterInput
-          id="max-price"
-          name="max-price"
+          id="max_price"
+          name="max_price"
           placeholder="Max Price"
           onChange={handleFilterChange}
+          value={filters.max_price}
         />
       </div>
 
@@ -97,6 +100,7 @@ const ProductsFilter = () => {
         label="Size"
         options={filterConfig.sizes}
         onChange={handleFilterChange}
+        value={filters.product_size}
       />
 
       {/* Color Filter */}
@@ -106,6 +110,7 @@ const ProductsFilter = () => {
         label="Color"
         options={filterConfig.colors}
         onChange={handleFilterChange}
+        value={filters.product_color}
       />
 
       {/* Category Filter */}
@@ -115,6 +120,7 @@ const ProductsFilter = () => {
         label="Category"
         options={filterConfig.categories}
         onChange={handleFilterChange}
+        value={filters.product_category}
       />
 
       {/* Sort Filter */}
@@ -124,6 +130,7 @@ const ProductsFilter = () => {
         label="Sort By"
         options={filterConfig.sortOptions}
         onChange={handleFilterChange}
+        value={filters.product_sort}
       />
 
       {/* Reset Button */}
