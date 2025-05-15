@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import Cart from "../../Cart/Cart";
+import DropDown from "./DropDown";
 
 const NavIcons = () => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
@@ -11,11 +12,26 @@ const NavIcons = () => {
   const [isLoggedIn, setIsLoggerIn] = useState(true);
 
   const handleProfileClick = () => {
+    setIsNotificationsOpen(false);
+    setIsCartOpen(false);
     setIsProfileOpen(!isProfileOpen);
+  };
+
+  const handleCartClick = () => {
+    setIsProfileOpen(false);
+    setIsNotificationsOpen(false);
+    setIsCartOpen(!isCartOpen);
+  };
+
+  const handleNotificationsClick = () => {
+    setIsProfileOpen(false);
+    setIsCartOpen(false);
+    setIsNotificationsOpen(!isNotificationsOpen);
   };
 
   return (
     <div className="flex items-center gap-4 xl:gap-6 relative">
+      {/* Profile */}
       <Image
         src={"/profile.png"}
         alt={"Profile-Img"}
@@ -25,38 +41,47 @@ const NavIcons = () => {
         onClick={handleProfileClick}
       />
       {isProfileOpen && isLoggedIn ? (
-        <div className="absolute top-12 left-0 w-full shadow-[0_3px_10px_rgb(0,0,0,0.2)] p-4 rounded-md text-sm z-20">
-          <Link href={"/profile"}>Profile</Link>
-          <div className="mt-2 cursor-pointer">Logout</div>
-        </div>
+        <DropDown>
+          <div className="mx-4">
+            <Link href={"/profile"}>Profile</Link>
+            <div className="mt-2 cursor-pointer">Logout</div>
+          </div>
+        </DropDown>
       ) : (
         isProfileOpen &&
         !isLoggedIn && (
-          <div className="absolute top-12 left-0 w-full shadow-[0_3px_10px_rgb(0,0,0,0.2)] p-3 rounded-md text-sm z-20">
+          <DropDown>
             <Link href={"/profile"}>Login</Link>
-          </div>
+          </DropDown>
         )
       )}
+      {/* Notifications */}
       <Image
         src={"/notification.png"}
         alt={"Profile-Img"}
         width={24}
         height={24}
         className="cursor-pointer"
-        onClick={() => setIsNotificationsOpen(!isNotificationsOpen)}
+        onClick={handleNotificationsClick}
       />
+      {isNotificationsOpen && (
+        <DropDown>
+          <p className="text-center w-max text-sm">No notifications</p>
+        </DropDown>
+      )}
+      {/* Cart */}
       <Image
         src={"/cart.png"}
         alt={"Profile-Img"}
         width={24}
         height={24}
         className="cursor-pointer"
-        onClick={() => setIsCartOpen(!isCartOpen)}
+        onClick={handleCartClick}
       />
       {isCartOpen && (
-        <div className="absolute top-12 right-0 w-max shadow-[0_3px_10px_rgb(0,0,0,0.2)] p-3 rounded-md text-sm z-20">
+        <DropDown>
           <Cart />
-        </div>
+        </DropDown>
       )}
     </div>
   );
