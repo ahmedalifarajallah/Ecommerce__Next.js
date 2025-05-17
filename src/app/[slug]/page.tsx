@@ -1,9 +1,11 @@
-import React from 'react'
+import ProductSinglePage from "@/components/Products/ProductSinglePage";
 
 const SinglePage = () => {
   return (
-    <div>SinglePage</div>
-  )
-}
+    <div className="container">
+      <ProductSinglePage />
+    </div>
+  );
+};
 
-export default SinglePage
+export default SinglePage;
