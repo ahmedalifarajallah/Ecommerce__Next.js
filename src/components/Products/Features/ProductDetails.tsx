@@ -2,7 +2,7 @@ import React from "react";
 
 const ProductDetails = () => {
   return (
-    <div className="product-details px-4 flex flex-col">
+    <div className="product-details px-2 lg:px-4 flex flex-col">
       {/* Product Title */}
       <h1 className="product-title text-2xl font-semibold">Digital Incense</h1>
       {/* Product Description */}
