@@ -1,4 +1,4 @@
-import React from "react";
+import ProductQuantity from "./ProductQuantity";
 
 const ProductDetails = () => {
   return (
@@ -45,14 +45,7 @@ const ProductDetails = () => {
         </div>
       </div>
       {/* Product Quantity */}
-      <div className="product-quantity my-3">
-        <p className="product-quantity__title font-medium mb-2">Quantity</p>
-        <div className="quantity flex items-center gap-4 py-2 px-4 rounded-full w-fit bg-gray-100 font-semibold">
-          <span className="cursor-pointer">-</span>
-          <span className="px-2 font-medium">2</span>
-          <span className="cursor-pointer">+</span>
-        </div>
-      </div>
+      <ProductQuantity />
       {/* Product Buttons */}
       <div className="product-btns my-3 flex items-center gap-4 text-sm border-b pb-6">
         <button className="rounded-full px-4 py-2 bg-primary text-white hover:bg-transparent hover:text-primary transition-colors duration-300 ease-in-out border border-primary">

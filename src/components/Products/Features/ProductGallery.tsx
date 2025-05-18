@@ -43,7 +43,7 @@ const ProductGallery = () => {
         {thumbnails.map((thumbnail) => (
           <div
             key={thumbnail.id}
-            className="relative h-20 w-1/4 rounded-md overflow-hidden"
+            className="relative h-20 w-1/4 rounded-md overflow-hidden cursor-pointer"
           >
             <Image
               src={thumbnail.img}
