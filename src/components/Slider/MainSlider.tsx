@@ -36,9 +36,9 @@ const MainSlider = () => {
             className={`h-[calc(100vh-5rem)] w-full flex items-center`}
             style={{ backgroundColor: slide.bgColor }}
           >
-            <div className="w-full h-full flex flex-col md:flex-row items-center ">
+            <div className="w-full h-full flex flex-col sm:flex-row items-center ">
               {/* Content */}
-              <div className="w-1/2 h-full flex flex-col justify-center items-center gap-12  text-center z-10 px-6 ">
+              <div className="w-full sm:w-1/2 h-full flex flex-col justify-center items-center gap-12  text-center z-10 px-6 ">
                 <p className="text-3xl md:text-4xl">{slide.description}</p>
                 <h1 className="text-xl md:text-5xl lg:text-6xl font-bold mb-4">
                   {slide.title}
@@ -52,7 +52,7 @@ const MainSlider = () => {
               </div>
 
               {/* Image */}
-              <div className="h-full w-1/2 ">
+              <div className="h-full w-full sm:w-1/2">
                 <div className="relative w-full h-full ">
                   <Image
                     src={slide.imageSrc}
