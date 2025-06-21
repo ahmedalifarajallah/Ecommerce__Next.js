@@ -1,4 +1,6 @@
+import ProductColors from "./ProductColors";
 import ProductQuantity from "./ProductQuantity";
+import ProductSizes from "./ProductSizes";
 
 const ProductDetails = () => {
   return (
@@ -21,29 +23,9 @@ const ProductDetails = () => {
         <span className="product-price__new font-semibold">$40.5</span>
       </p>
       {/* Product Colors */}
-      <div className="product-colors my-3 ">
-        <p className="product-colors__title font-medium mb-2">Choose a Color</p>
-        <div className="flex gap-2">
-          <div className="w-6 h-6 rounded-full bg-primary cursor-pointer hover:scale-110 hover:ring-2 hover:ring-primary/50 transition-all duration-200"></div>
-          <div className="w-6 h-6 rounded-full bg-primary cursor-pointer hover:scale-110 hover:ring-2 hover:ring-primary/50 transition-all duration-200"></div>
-          <div className="w-6 h-6 rounded-full bg-primary cursor-pointer hover:scale-110 hover:ring-2 hover:ring-primary/50 transition-all duration-200"></div>
-        </div>
-      </div>
+      <ProductColors />
       {/* Product Sizes */}
-      <div className="product-sizes my-3">
-        <p className="product-sizes__title font-medium mb-2">Choose a Size</p>
-        <div className="flex gap-4">
-          <div className="rounded-[4px] ring px-[12px] py-[2px] text-xs ring-primary ring-[1px] text-primary cursor-pointer hover:bg-primary hover:text-white transition-colors duration-200">
-            small
-          </div>
-          <div className="rounded-[4px] ring px-[12px] py-[2px] text-xs ring-primary ring-[1px] text-primary cursor-pointer hover:bg-primary hover:text-white transition-colors duration-200">
-            Medium
-          </div>
-          <div className="rounded-[4px] ring px-[12px] py-[2px] text-xs ring-primary ring-[1px] text-primary cursor-pointer hover:bg-primary hover:text-white transition-colors duration-200">
-            Large
-          </div>
-        </div>
-      </div>
+      <ProductSizes />
       {/* Product Quantity */}
       <ProductQuantity />
       {/* Product Buttons */}

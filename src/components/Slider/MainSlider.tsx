@@ -1,116 +1,74 @@
 "use client";
-import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { sliderData } from "@/data/mainCarousel";
 import { ISliderItem } from "@/interfaces/mainSlider";
-import LeftArrow from "../LeftArrow";
-import RightArrow from "../RightArrow";
+import { Pagination, Autoplay } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
+import "./pagination.css";
 
 // get the slider data
 const sliders: ISliderItem[] = sliderData;
 
 const MainSlider = () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
-
-  // Auto-rotate slides
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % sliders.length);
-    }, 3000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  const goToSlide = (index: number) => {
-    setCurrentSlide(index);
-  };
-
-  const goToNextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % sliders.length);
-  };
-
-  const goToPrevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + sliders.length) % sliders.length);
-  };
-
   return (
-    <div
-      className={`relative w-[calc(100vw*${sliders.length})] h-[calc(100vh-5rem)] overflow-hidden`}
+    <Swiper
+      spaceBetween={50}
+      slidesPerView={1}
+      modules={[Autoplay, Pagination]}
+      pagination={{ clickable: true }}
+      autoplay={{ delay: 3000, disableOnInteraction: false }}
+      className="main-swiper"
     >
       {/* Slides */}
       {sliders.map((slide, index) => (
-        <div
-          key={slide.id}
-          className={`absolute top-0 w-full h-full transition-all duration-1000 ease-in-out flex items-center ${slide.bgColor}`}
+        <SwiperSlide
           style={{
-            transform: `translateX(${(index - currentSlide) * 100}%)`,
-            zIndex: index === currentSlide ? 10 : 5,
+            width: "100vw !important",
+            height: "calc(100vh - 5rem) !important",
           }}
+          key={slide.id}
         >
-          <div className="container mx-auto px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 flex flex-col md:flex-row items-center">
-            {/* Content */}
-            <div className="w-full md:w-1/2 text-center md:text-left z-10 mb-8 md:mb-0">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
-                {slide.title}
-              </h1>
-              <p className="text-xl mb-8 max-w-md">{slide.description}</p>
-              <Link
-                href={slide.link}
-                className="bg-black text-white px-8 py-3 rounded-md text-lg hover:bg-gray-800 transition-colors"
-              >
-                {slide.buttonText}
-              </Link>
-            </div>
+          <div
+            className={`h-[calc(100vh-5rem)] w-full flex items-center`}
+            style={{ backgroundColor: slide.bgColor }}
+          >
+            <div className="w-full h-full flex flex-col md:flex-row items-center ">
+              {/* Content */}
+              <div className="w-1/2 h-full flex flex-col justify-center items-center gap-12  text-center z-10 px-6 ">
+                <p className="text-3xl md:text-4xl">{slide.description}</p>
+                <h1 className="text-xl md:text-5xl lg:text-6xl font-bold mb-4">
+                  {slide.title}
+                </h1>
+                <Link
+                  href={slide.link}
+                  className="bg-black text-white px-8 py-3 rounded-md text-lg hover:bg-gray-800 transition-colors"
+                >
+                  {slide.buttonText}
+                </Link>
+              </div>
 
-            {/* Image */}
-            <div className="w-full md:w-1/2 flex justify-center md:justify-end">
-              <div className="relative w-80 h-80 md:w-96 md:h-96">
-                <Image
-                  src={slide.imageSrc}
-                  alt={slide.title}
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  className="object-cover"
-                  priority={index === 0}
-                />
+              {/* Image */}
+              <div className="h-full w-1/2 ">
+                <div className="relative w-full h-full ">
+                  <Image
+                    src={slide.imageSrc}
+                    alt={slide.title}
+                    fill
+                    style={{ objectFit: "cover", objectPosition: "top" }}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    priority={index === 0}
+                  />
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </SwiperSlide>
       ))}
-
-      {/* Navigation arrows */}
-      <button
-        onClick={goToPrevSlide}
-        className="absolute left-4 top-1/2 transform -translate-y-1/2 z-20 bg-white/80 w-10 h-10 rounded-full flex items-center justify-center shadow-md hover:bg-white transition-colors"
-        aria-label="Previous slide"
-      >
-        <LeftArrow />
-      </button>
-
-      <button
-        onClick={goToNextSlide}
-        className="absolute right-4 top-1/2 transform -translate-y-1/2 z-20 bg-white/80 w-10 h-10 rounded-full flex items-center justify-center shadow-md hover:bg-white transition-colors"
-        aria-label="Next slide"
-      >
-        <RightArrow />
-      </button>
-
-      {/* Dots indicators */}
-      <div className="absolute bottom-8 left-0 right-0 z-20 flex justify-center gap-2">
-        {sliders.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => goToSlide(index)}
-            className={`w-3 h-3 rounded-full transition-colors ${
-              index === currentSlide ? "bg-black" : "bg-gray-400"
-            }`}
-            aria-label={`Go to slide ${index + 1}`}
-          />
-        ))}
-      </div>
-    </div>
+    </Swiper>
   );
 };
 

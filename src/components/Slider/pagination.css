@@ -1,0 +1,9 @@
+.main-swiper .swiper-pagination-bullet {
+  background-color: rgb(227 76 110) !important;
+  opacity: 0.6;
+}
+
+.main-swiper .swiper-pagination-bullet-active {
+  background-color: rgb(227 76 110) !important;
+  opacity: 1;
+}
