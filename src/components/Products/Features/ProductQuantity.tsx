@@ -17,7 +17,7 @@ const ProductQuantity = () => {
   };
 
   return (
-    <div className="product-quantity my-3">
+    <div className="product-quantity my-3 select-none">
       <p className="product-quantity__title font-medium mb-2">Quantity</p>
       <div className="quantity flex items-center gap-4 py-2 px-4 rounded-full w-fit bg-gray-100 font-semibold">
         <span

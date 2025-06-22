@@ -10,6 +10,8 @@ const productColors = [
   },
 ];
 
+// **TODO: make the color of btns based on selected or not, on stock or not
+
 const ProductColors = () => {
   return (
     <div className="product-colors my-3 ">
