@@ -22,8 +22,8 @@ const CategorySlider = () => {
       {/* Slides */}
       {categories.map((slide, index) => (
         <SwiperSlide key={slide.id}>
-          <div className={`categories-container px-4 `}>
-            <div className="categories-slider flex gap-4 md:gap-6 pb-4">
+          <div className={`categories-container `}>
+            <div className="categories-slider pb-4">
               <CategoryBox category={slide} />
             </div>
           </div>

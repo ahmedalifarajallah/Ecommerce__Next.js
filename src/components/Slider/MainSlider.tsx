@@ -16,7 +16,7 @@ const sliders: ISliderItem[] = sliderData;
 const MainSlider = () => {
   return (
     <Swiper
-      spaceBetween={50}
+      spaceBetween={0}
       slidesPerView={1}
       modules={[Autoplay, Pagination]}
       pagination={{ clickable: true }}

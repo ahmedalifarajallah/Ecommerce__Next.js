@@ -9,7 +9,7 @@ interface CategoryBoxProps {
 const CategoryBox: React.FC<CategoryBoxProps> = ({ category }) => {
   return (
     <Link href={"/"}>
-      <div className="bg-slate-100 w-full h-96">
+      <div className="bg-slate-100 w-full h-96 relative">
         <Image
           src={category.image}
           alt={category.name}

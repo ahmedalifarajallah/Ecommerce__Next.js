@@ -8,7 +8,7 @@ import { ILink } from "@/interfaces/FooterLinkInterface";
 
 const HYPER_LINKS: ILink[] = [
   { label: "Home", link: "/" },
-  { label: "Shop", link: "/" },
+  { label: "Shop", link: "/products" },
   { label: "Deals", link: "/" },
   { label: "About", link: "/" },
   { label: "Contact", link: "/" },
@@ -20,7 +20,7 @@ const NavBar = () => {
     <div className="h-20 container relative">
       {/* Mobile */}
       <div className="h-full flex items-center justify-between md:hidden">
-        <Link href={"/"}>
+        <Link href={"/"} className="select-none">
           <div className="text-2xl tracking-wide">AKL</div>
         </Link>
         <Menu />
@@ -29,7 +29,7 @@ const NavBar = () => {
       <div className="hidden md:flex items-center justify-between gap-8 h-full">
         {/* Left Side */}
         <div className="w-1/3 lg:w-1/2 lg:flex items-center justify-start gap-8">
-          <Link href={"/"} className="flex items-center gap-3">
+          <Link href={"/"} className="flex items-center gap-3 select-none">
             <Image src={"/logo.png"} alt="Logo-Img" height={24} width={24} />
             <div className="text-2xl tracking-wide">AKL</div>
           </Link>

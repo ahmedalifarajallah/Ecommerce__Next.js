@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Cart from "../../Cart/Cart";
 import DropDown from "./DropDown";
 
@@ -10,6 +10,7 @@ const NavIcons = () => {
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isLoggedIn, setIsLoggerIn] = useState(true);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const handleProfileClick = () => {
     setIsNotificationsOpen(false);
@@ -29,8 +30,30 @@ const NavIcons = () => {
     setIsNotificationsOpen(!isNotificationsOpen);
   };
 
+  // Close dropdown on click outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(event.target as Node)
+      ) {
+        setIsProfileOpen(false);
+        setIsNotificationsOpen(false);
+        setIsCartOpen(false);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
+
   return (
-    <div className="flex items-center gap-4 xl:gap-6 relative">
+    <div
+      className="flex items-center gap-4 xl:gap-6 relative"
+      ref={containerRef}
+    >
       {/* Profile */}
       <Image
         src={"/profile.png"}
@@ -58,7 +81,7 @@ const NavIcons = () => {
       {/* Notifications */}
       <Image
         src={"/notification.png"}
-        alt={"Profile-Img"}
+        alt={"notification-Img"}
         width={24}
         height={24}
         className="cursor-pointer"
@@ -72,7 +95,7 @@ const NavIcons = () => {
       {/* Cart */}
       <Image
         src={"/cart.png"}
-        alt={"Profile-Img"}
+        alt={"cart-Img"}
         width={24}
         height={24}
         className="cursor-pointer"

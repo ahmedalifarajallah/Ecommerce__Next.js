@@ -4,7 +4,7 @@ import ProductsSection from "@/components/Products/ProductsSection";
 import { productsData } from "@/data/products";
 import React from "react";
 
-const List = () => {
+const ProductsListPage = () => {
   return (
     <div className="container">
       <Banner />
@@ -14,4 +14,4 @@ const List = () => {
   );
 };
 
-export default List;
+export default ProductsListPage;
