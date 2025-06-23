@@ -1,16 +1,22 @@
-import FeaturedProducts from "@/components/Products/FeaturedProducts";
-import NewProducts from "@/components/Products/NewProducts";
+import ProductsSection from "@/components/Products/ProductsSection";
 import CategorySlider from "@/components/Slider/CategorySlider";
-// import MainSlider from "@/components/Slider/MainSlider";
 import MainSlider from "@/components/Slider/MainSlider";
 
 const HomePage = () => {
   return (
     <>
       <MainSlider />
-      <FeaturedProducts />
+      <ProductsSection
+        title="Featured Products"
+        categoryId={process.env.WIX_MEN_COLLECTION_ID!}
+        limit={4}
+      />
       <CategorySlider />
-      <NewProducts />
+      <ProductsSection
+        title="New Products"
+        categoryId={process.env.WIX_WOMEN_COLLECTION_ID!}
+        limit={4}
+      />
     </>
   );
 };

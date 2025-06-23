@@ -1,9 +1,9 @@
-import { IProduct } from "@/interfaces/productInterface";
+import { products } from "@wix/stores";
 import Image from "next/image";
 import Link from "next/link";
 
 interface ProductCardProps {
-  product: IProduct;
+  product: products.Product;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
@@ -12,17 +12,17 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
     <div className="product-card flex flex-col justify-between">
       {/* Product Images */}
-      <Link href={"/"}>
+      <Link href={`/products/${product.slug}`} prefetch={false}>
         <div className="relative w-full h-64">
           <Image
-            src={product.images[0]}
+            src={product.media?.mainMedia?.image?.url || ""}
             alt="Product-Img"
             fill
             sizes={imageSizes}
             className="object-cover object-[top_center] absolute rounded-md z-10 hover:opacity-0 transition-opacity easy duration-500"
           />
           <Image
-            src={product.images[1]}
+            src={(product.media?.items ?? [])[1]?.image?.url || ""}
             alt="Product-Img"
             fill
             sizes={imageSizes}
@@ -35,10 +35,12 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         {/* Product Name & Price */}
         <div className="product_details flex items-center justify-between font-semibold">
           <span className="product-name">{product.name}</span>
-          <span className="product-price text-end">{product.price} EGP</span>
+          <span className="product-price text-end">
+            {product.priceData?.price} {product.priceData?.currency}
+          </span>
         </div>
         {/* Product Description */}
-        <p className="product-description text-sm text-gray-700">
+        <p className="product-description text-sm text-gray-700 line-clamp-2 sm:line-clamp-3 md:line-clamp-4">
           {product.description}
         </p>
         {/* Product Button */}
