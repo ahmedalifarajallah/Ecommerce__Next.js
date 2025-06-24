@@ -27,7 +27,7 @@ import React from "react";
 
 const ProductGallery = ({ media }: { media: products.Product["media"] }) => {
   return (
-    <div className="product-gallery flex flex-col gap-2 lg:gap-4 px-2 lg:px-4">
+    <div className="product-gallery flex flex-col gap-2 px-2 lg:px-4">
       {/* Main Image */}
       <div className="main-image relative w-full h-80 lg:h-96">
         {media?.mainMedia && (
@@ -42,7 +42,7 @@ const ProductGallery = ({ media }: { media: products.Product["media"] }) => {
         )}
       </div>
       {/* Remain Images */}
-      <div className="remain-images flex gap-2 lg:gap-4 justify-between w-full">
+      <div className="remain-images flex gap-2 justify-start w-full">
         {media?.items &&
           media?.items.map((img) => (
             <div

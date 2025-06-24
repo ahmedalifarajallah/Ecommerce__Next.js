@@ -3,6 +3,7 @@ import ProductColors from "./ProductColors";
 import ProductQuantity from "./ProductQuantity";
 import ProductSizes from "./ProductSizes";
 import ProductPrice from "./ProductPrice";
+import ProductAdditionalInfo from "./ProductAdditionalInfo";
 
 const ProductDetails = ({ product }: { product: products.Product }) => {
   return (
@@ -33,43 +34,15 @@ const ProductDetails = ({ product }: { product: products.Product }) => {
           Buy Now
         </button>
       </div>
-      {/* Product Others Info */}
-      <div className="product-other-info flex flex-col gap-4 py-4">
-        {/* Product Info */}
-        <div className="product-info">
-          <h2 className="product-info__title font-semibold">Product Info</h2>
-          <p className="product-info__description my-2 text-sm">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore
-            ducimus ex praesentium molestiae asperiores voluptate, ipsa vel modi
-            tempora pariatur ipsam unde commodi dolore perferendis minima
-            voluptas officia rem quibusdam.
-          </p>
+      {/* Product Additional Info */}
+      {product.additionalInfoSections && (
+        <div className="product-other-info flex flex-col gap-4 py-4">
+          {product.additionalInfoSections &&
+            product.additionalInfoSections.map((info) => (
+              <ProductAdditionalInfo additionalInfo={info} key={info.title} />
+            ))}
         </div>
-        {/* Return & Refund Policy */}
-        <div className="return-refund-policy">
-          <h2 className="return-refund-policy__title font-semibold">
-            Return & Refund Policy
-          </h2>
-          <p className="return-refund-policy__description my-2 text-sm">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore
-            ducimus ex praesentium molestiae asperiores voluptate, ipsa vel modi
-            tempora pariatur ipsam unde commodi dolore perferendis minimaipsa
-            vel modi tempora pariatur ipsam unde commodi dolore perferendisipsa
-            vel modi tempora pariatur ipsam unde commodi dolore perferendis
-            minima minima voluptas officia rem quibusdam.
-          </p>
-        </div>
-        {/* Shipping Info */}
-        <div className="shipping-info">
-          <h2 className="shipping-info__title font-semibold">Shipping Info</h2>
-          <p className="shipping-info__description my-2 text-sm">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore
-            ducimus ex praesentium molestiae asperiores voluptate, ipsa vel modi
-            tempora pariatur ipsam unde commodi dolore perferendis minima
-            voluptas officia rem quibusdam.
-          </p>
-        </div>
-      </div>
+      )}
     </div>
   );
 };
