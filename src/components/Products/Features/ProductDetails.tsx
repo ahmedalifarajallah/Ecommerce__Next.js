@@ -1,31 +1,27 @@
+import { products } from "@wix/stores";
 import ProductColors from "./ProductColors";
 import ProductQuantity from "./ProductQuantity";
 import ProductSizes from "./ProductSizes";
+import ProductPrice from "./ProductPrice";
 
-const ProductDetails = () => {
+const ProductDetails = ({ product }: { product: products.Product }) => {
   return (
     <div className="product-details px-2 lg:px-4 flex flex-col">
       {/* Product Title */}
-      <h1 className="product-title text-2xl font-semibold">Digital Incense</h1>
+      <h1 className="product-title text-2xl font-semibold">{product.name}</h1>
       {/* Product Description */}
       <p className="product-description my-3 text-gray-600 text-sm">
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Veritatis
-        ipsam, minus aut doloremque perspiciatis ipsa quam aspernatur explicabo
-        esse nulla labore sapiente at in aperiam, sequi amet enim odit deleniti?
-        Aliquid nam incidunt fugiat possimus in iste non, temporibus fuga
-        provident esse ea illum itaque qui, accusantium sapiente nobis
+        {product.description}
       </p>
       {/* Product Price */}
-      <p className="product-price py-6 my-3 border-t border-b">
-        <span className="product-price__old font-semibold line-through text-sm text-gray-600 mr-2">
-          $45
-        </span>
-        <span className="product-price__new font-semibold">$40.5</span>
-      </p>
+      <ProductPrice
+        priceData={product?.priceData}
+        discount={product?.discount}
+      />
       {/* Product Colors */}
-      <ProductColors />
+      <ProductColors productColors={product?.productOptions || []} />
       {/* Product Sizes */}
-      <ProductSizes />
+      <ProductSizes productSizes={product?.productOptions || []} />
       {/* Product Quantity */}
       <ProductQuantity />
       {/* Product Buttons */}

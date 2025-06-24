@@ -14,20 +14,24 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       {/* Product Images */}
       <Link href={`/products/${product.slug}`} prefetch={false}>
         <div className="relative w-full h-64">
-          <Image
-            src={product.media?.mainMedia?.image?.url || ""}
-            alt="Product-Img"
-            fill
-            sizes={imageSizes}
-            className="object-cover object-[top_center] absolute rounded-md z-10 hover:opacity-0 transition-opacity easy duration-500"
-          />
-          <Image
-            src={(product.media?.items ?? [])[1]?.image?.url || ""}
-            alt="Product-Img"
-            fill
-            sizes={imageSizes}
-            className="object-cover object-[top_center] absolute rounded-md "
-          />
+          {product.media?.mainMedia && (
+            <Image
+              src={product.media?.mainMedia?.image?.url || ""}
+              alt="Product-Img"
+              fill
+              sizes={imageSizes}
+              className="object-cover object-[top_center] absolute rounded-md z-10 hover:opacity-0 transition-opacity easy duration-500"
+            />
+          )}
+          {product.media?.items && (
+            <Image
+              src={product.media?.items[1]?.image?.url || ""}
+              alt="Product-Img"
+              fill
+              sizes={imageSizes}
+              className="object-cover object-[top_center] absolute rounded-md "
+            />
+          )}
         </div>
       </Link>
       {/* product details */}

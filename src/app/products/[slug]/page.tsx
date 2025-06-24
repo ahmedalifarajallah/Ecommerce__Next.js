@@ -1,9 +1,11 @@
 import ProductSinglePage from "@/components/Products/ProductSinglePage";
 
-const SinglePage = () => {
+const SinglePage = ({ params }: { params: { slug: string } }) => {
+  const { slug } = params;
+
   return (
     <div className="container">
-      <ProductSinglePage />
+      <ProductSinglePage slug={slug} />
     </div>
   );
 };
