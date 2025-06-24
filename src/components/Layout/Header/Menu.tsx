@@ -5,7 +5,7 @@ import Link from "next/link";
 import React, { useMemo, useState } from "react";
 const HYPER_LINKS: ILink[] = [
   { label: "Home", link: "/" },
-  { label: "Shop", link: "/" },
+  { label: "Shop", link: "/products" },
   { label: "Deals", link: "/" },
   { label: "About", link: "/" },
   { label: "Contact", link: "/" },
