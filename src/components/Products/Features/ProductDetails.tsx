@@ -4,6 +4,7 @@ import ProductQuantity from "./ProductQuantity";
 import ProductSizes from "./ProductSizes";
 import ProductPrice from "./ProductPrice";
 import ProductAdditionalInfo from "./ProductAdditionalInfo";
+import DOMPurify from "isomorphic-dompurify";
 
 const ProductDetails = ({ product }: { product: products.Product }) => {
   return (
@@ -11,9 +12,14 @@ const ProductDetails = ({ product }: { product: products.Product }) => {
       {/* Product Title */}
       <h1 className="product-title text-2xl font-semibold">{product.name}</h1>
       {/* Product Description */}
-      <p className="product-description my-3 text-gray-600 text-sm">
-        {product.description}
-      </p>
+      {product.description && (
+        <div
+          className="product-description my-3 text-gray-600 text-sm"
+          dangerouslySetInnerHTML={{
+            __html: DOMPurify.sanitize(product.description),
+          }}
+        ></div>
+      )}
       {/* Product Price */}
       <ProductPrice
         priceData={product?.priceData}

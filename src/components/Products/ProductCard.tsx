@@ -1,6 +1,7 @@
 import { products } from "@wix/stores";
 import Image from "next/image";
 import Link from "next/link";
+import DOMPurify from "isomorphic-dompurify";
 
 interface ProductCardProps {
   product: products.Product;
@@ -44,9 +45,15 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           </span>
         </div>
         {/* Product Description */}
-        <p className="product-description text-sm text-gray-700 line-clamp-2 sm:line-clamp-3 md:line-clamp-4">
-          {product.description}
-        </p>
+        {product.description && (
+          <div
+            className="product-description text-sm text-gray-700 line-clamp-2 sm:line-clamp-3 md:line-clamp-4"
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(product.description),
+            }}
+          ></div>
+        )}
+
         {/* Product Button */}
         <button className="rounded-2xl ring-1 ring-primary text-primary py-2 px-4 text-xs hover:bg-primary hover:text-white transition-all duration-500 ease">
           Add to cart

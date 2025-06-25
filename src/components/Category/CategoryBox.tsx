@@ -1,18 +1,18 @@
-import { ICategory } from "@/interfaces/categoryInterface";
+import { collections } from "@wix/stores";
 import Image from "next/image";
 import Link from "next/link";
 
 interface CategoryBoxProps {
-  category: ICategory;
+  category: collections.Collection;
 }
 
 const CategoryBox: React.FC<CategoryBoxProps> = ({ category }) => {
   return (
-    <Link href={"/"}>
+    <Link href={`/products?category=${category.slug}`}>
       <div className="bg-slate-100 w-full h-96 relative">
         <Image
-          src={category.image}
-          alt={category.name}
+          src={category.media?.mainMedia?.image?.url || ""}
+          alt={category.name + "-IMG" || "Category-Img"}
           fill
           sizes="(max-width: 768px) 200px, 300px"
           style={{ objectFit: "cover", objectPosition: "top" }}

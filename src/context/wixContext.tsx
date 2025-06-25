@@ -1,6 +1,6 @@
 "use client";
 import { createClient, OAuthStrategy } from "@wix/sdk";
-import { products } from "@wix/stores";
+import { products, collections } from "@wix/stores";
 import Cookies from "js-cookie";
 import { createContext } from "react";
 
@@ -9,6 +9,7 @@ const refreshToken = JSON.parse(Cookies.get("refreshToken") || "{}");
 const myWixClient = createClient({
   modules: {
     products,
+    collections,
     // currentCart,
   },
   auth: OAuthStrategy({

@@ -1,13 +1,30 @@
 "use client";
-import { categoriesData } from "@/data/categories";
 import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
 import "swiper/css";
 import CategoryBox from "../Category/CategoryBox";
+import useWixClient from "@/hooks/useWixClient";
+import { collections } from "@wix/stores";
+import { useEffect, useState } from "react";
 
 const CategorySlider = () => {
-  const categories = categoriesData;
+  const [categories, setCategories] = useState<collections.Collection[]>([]);
+  const wixClient = useWixClient();
+
+  useEffect(() => {
+    const getCategories = async () => {
+      try {
+        const res = await wixClient.collections.queryCollections().find();
+        setCategories(res.items || []);
+      } catch (error) {
+        console.error("Failed to fetch categories:", error);
+      }
+    };
+
+    getCategories();
+  }, [wixClient.collections]);
+
   return (
     <Swiper
       modules={[Autoplay]}
@@ -20,15 +37,17 @@ const CategorySlider = () => {
       className="category-swiper w-full"
     >
       {/* Slides */}
-      {categories.map((slide, index) => (
-        <SwiperSlide key={slide.id}>
-          <div className={`categories-container `}>
-            <div className="categories-slider pb-4">
-              <CategoryBox category={slide} />
+      {categories
+        .filter((cat) => cat.name !== "All Products")
+        .map((slide, index) => (
+          <SwiperSlide key={slide._id}>
+            <div className={`categories-container `}>
+              <div className="categories-slider pb-4">
+                <CategoryBox category={slide} />
+              </div>
             </div>
-          </div>
-        </SwiperSlide>
-      ))}
+          </SwiperSlide>
+        ))}
     </Swiper>
   );
 };
