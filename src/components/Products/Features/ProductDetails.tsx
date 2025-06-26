@@ -1,3 +1,4 @@
+"use client";
 import { products } from "@wix/stores";
 import ProductColors from "./ProductColors";
 import ProductQuantity from "./ProductQuantity";
@@ -5,8 +6,34 @@ import ProductSizes from "./ProductSizes";
 import ProductPrice from "./ProductPrice";
 import ProductAdditionalInfo from "./ProductAdditionalInfo";
 import DOMPurify from "isomorphic-dompurify";
+import { useState } from "react";
 
 const ProductDetails = ({ product }: { product: products.Product }) => {
+  const [selectedOptions, setSelectedOptions] = useState<{
+    [key: string]: string;
+  } | null>({});
+  const variants = product.variants || [];
+
+  const handleOptionsSelected = (optionType: string, choice: string) => {
+    setSelectedOptions((prev) => ({ ...prev, [optionType]: choice }));
+  };
+
+  const isVariantInStock = (choices: { [key: string]: string }) => {
+    return variants.some((variant) => {
+      const variantChoices = variant.choices;
+      if (!variantChoices) return false;
+
+      return (
+        Object.entries(choices).every(
+          ([key, value]) => variantChoices[key] === value
+        ) &&
+        variant.stock?.inStock &&
+        variant.stock?.quantity &&
+        variant.stock?.quantity > 0
+      );
+    });
+  };
+
   return (
     <div className="product-details px-2 lg:px-4 flex flex-col">
       {/* Product Title */}
@@ -26,9 +53,19 @@ const ProductDetails = ({ product }: { product: products.Product }) => {
         discount={product?.discount}
       />
       {/* Product Colors */}
-      <ProductColors productColors={product?.productOptions || []} />
+      <ProductColors
+        productColors={product?.productOptions || []}
+        handleSelectedColor={handleOptionsSelected}
+        selectedOptions={selectedOptions}
+        isVariantInStock={isVariantInStock}
+      />
       {/* Product Sizes */}
-      <ProductSizes productSizes={product?.productOptions || []} />
+      <ProductSizes
+        productSizes={product?.productOptions || []}
+        handleSelectedSize={handleOptionsSelected}
+        selectedOptions={selectedOptions}
+        isVariantInStock={isVariantInStock}
+      />
       {/* Product Quantity */}
       <ProductQuantity />
       {/* Product Buttons */}

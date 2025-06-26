@@ -12,6 +12,7 @@ const ProductSinglePage = async ({ slug }: { slug: string }) => {
   } catch (error) {
     console.error("Failed to fetch product:", error);
   }
+
   return (
     <div className="single-product__container flex flex-col md:flex-row justify-between gap-6 md:gap-2 lg:gap-8 w-full">
       {/* Sticky Gallery */}
