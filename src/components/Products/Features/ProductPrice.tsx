@@ -1,16 +1,19 @@
 import { products } from "@wix/stores";
 
 const ProductPrice = ({
-  priceData,
-  discount,
+  selectedVariants,
 }: {
-  priceData: products.PriceData | undefined;
-  discount: products.Discount | undefined;
+  selectedVariants: products.Variant | undefined;
 }) => {
-  const isDiscounted =
-    discount && (discount.value !== 0 || discount.type !== "NONE");
+  const priceData = selectedVariants?.variant?.priceData;
 
-  const finalPrice = isDiscounted ? priceData?.discountedPrice : null;
+  if (!priceData) return null;
+
+  const isDiscounted =
+    priceData.discountedPrice !== undefined &&
+    priceData.discountedPrice !== 0 &&
+    priceData.discountedPrice !== priceData.price;
+
   return (
     <p className="product-price py-6 my-3 border-t border-b">
       <span
@@ -22,7 +25,7 @@ const ProductPrice = ({
       </span>
       {isDiscounted && (
         <span className="product-price__new font-semibold">
-          {priceData?.currency} {finalPrice}
+          {priceData?.currency} {priceData.discountedPrice}
         </span>
       )}
     </p>

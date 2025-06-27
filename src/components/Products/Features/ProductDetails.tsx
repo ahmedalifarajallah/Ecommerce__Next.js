@@ -6,23 +6,67 @@ import ProductSizes from "./ProductSizes";
 import ProductPrice from "./ProductPrice";
 import ProductAdditionalInfo from "./ProductAdditionalInfo";
 import DOMPurify from "isomorphic-dompurify";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 const ProductDetails = ({ product }: { product: products.Product }) => {
   const [selectedOptions, setSelectedOptions] = useState<{
     [key: string]: string;
-  } | null>({});
-  const variants = product.variants || [];
+  }>({});
+  const [selectedVariants, setSelectedVariants] = useState<products.Variant>();
+  const variants = useMemo(() => product.variants || [], [product.variants]);
 
+  // Find the variant with the lowest price initially
+  const lowestPriceVariant = useMemo(() => {
+    if (!product.variants || product.variants.length === 0) return undefined;
+
+    return product.variants.reduce((lowest, current) => {
+      const lowestPrice = lowest.variant?.priceData?.price ?? Infinity;
+      const currentPrice = current.variant?.priceData?.price ?? Infinity;
+      return currentPrice < lowestPrice ? current : lowest;
+    });
+  }, [product.variants]);
+
+  console.log("lowestPriceVariant", lowestPriceVariant);
+
+  // Find the variant that matches the selected options
+  useEffect(() => {
+    // Check if all required options are selected before finding the variant
+    const requiredOptions = product.productOptions?.length || 0;
+    // If not all required options are selected, select the variant with the lowest price
+    if (Object.keys(selectedOptions).length < requiredOptions) {
+      setSelectedVariants(lowestPriceVariant);
+      return;
+    }
+
+    // Find the variant that matches the selected options
+    const variant = variants.find((variant) => {
+      const variantChoices = variant.choices;
+      if (!variantChoices) return false;
+
+      return Object.entries(selectedOptions).every(
+        ([key, value]) => variantChoices[key] === value
+      );
+    });
+    setSelectedVariants(variant);
+  }, [
+    selectedOptions,
+    variants,
+    lowestPriceVariant,
+    product.productOptions?.length,
+  ]);
+
+  // Handle option selection
   const handleOptionsSelected = (optionType: string, choice: string) => {
     setSelectedOptions((prev) => ({ ...prev, [optionType]: choice }));
   };
 
+  // Check if a variant is in stock
   const isVariantInStock = (choices: { [key: string]: string }) => {
     return variants.some((variant) => {
       const variantChoices = variant.choices;
       if (!variantChoices) return false;
 
+      // Check if the variant choices match the selected options and are in stock
       return (
         Object.entries(choices).every(
           ([key, value]) => variantChoices[key] === value
@@ -48,10 +92,7 @@ const ProductDetails = ({ product }: { product: products.Product }) => {
         ></div>
       )}
       {/* Product Price */}
-      <ProductPrice
-        priceData={product?.priceData}
-        discount={product?.discount}
-      />
+      <ProductPrice selectedVariants={selectedVariants} />
       {/* Product Colors */}
       <ProductColors
         productColors={product?.productOptions || []}

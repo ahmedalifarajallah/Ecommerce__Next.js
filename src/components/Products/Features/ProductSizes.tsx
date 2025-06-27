@@ -44,11 +44,6 @@ const ProductSizes = ({
                 }
               >
                 {size.value}
-
-                {/* Optional: Red Line for Disabled */}
-                {disabled && (
-                  <div className="absolute top-1/2 left-0 w-full border-t-2 border-red-500 rotate-45"></div>
-                )}
               </div>
             );
           })}
