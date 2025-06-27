@@ -26,8 +26,6 @@ const ProductDetails = ({ product }: { product: products.Product }) => {
     });
   }, [product.variants]);
 
-  console.log("lowestPriceVariant", lowestPriceVariant);
-
   // Find the variant that matches the selected options
   useEffect(() => {
     // Check if all required options are selected before finding the variant
@@ -108,7 +106,7 @@ const ProductDetails = ({ product }: { product: products.Product }) => {
         isVariantInStock={isVariantInStock}
       />
       {/* Product Quantity */}
-      <ProductQuantity />
+      <ProductQuantity selectedVariants={selectedVariants} />
       {/* Product Buttons */}
       <div className="product-btns my-3 flex items-center gap-4 text-sm border-b pb-6">
         <button className="rounded-full px-4 py-2 bg-primary text-white hover:bg-transparent hover:text-primary transition-colors duration-300 ease-in-out border border-primary">
