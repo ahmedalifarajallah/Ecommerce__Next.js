@@ -10,14 +10,15 @@ const ProductQuantity = ({
   const [quantity, setQuantity] = useState<number>(1);
 
   const availableQuantity = selectedVariants?.stock?.quantity || 0;
+  const inStock = selectedVariants?.stock?.inStock && availableQuantity > 0;
 
   const increaseQuantity = () => {
-    if (quantity >= availableQuantity) return;
+    if (!inStock || quantity >= availableQuantity) return;
     setQuantity(quantity + 1);
   };
 
   const decreaseQuantity = () => {
-    if (quantity <= 1) return;
+    if (!inStock || quantity <= 1) return;
     setQuantity(quantity - 1);
   };
 
@@ -25,43 +26,40 @@ const ProductQuantity = ({
     <div className="product-quantity my-4 select-none">
       <p className="font-medium mb-2">Quantity</p>
 
-      <div className="flex items-center gap-4">
-        {/* Quantity controls */}
-        <div className="flex items-center rounded-full bg-gray-100 px-4 py-2 font-semibold">
-          {/* Decrease Button */}
-          <button
-            onClick={decreaseQuantity}
-            disabled={quantity === 1}
-            className={`w-6 h-6 flex items-center justify-center text-lg rounded-full transition-colors ${
-              quantity === 1
-                ? "text-gray-400 cursor-not-allowed"
-                : "text-primary hover:bg-primary hover:text-white cursor-pointer"
-            }`}
-            aria-label="Decrease quantity"
-          >
-            -
-          </button>
+      {inStock ? (
+        <div className="flex items-center gap-4">
+          {/* Quantity Controls */}
+          <div className="flex items-center rounded-full bg-gray-100 px-4 py-2 font-semibold">
+            <button
+              onClick={decreaseQuantity}
+              disabled={quantity === 1}
+              className={`w-6 h-6 flex items-center justify-center text-lg rounded-full transition-colors ${
+                quantity === 1
+                  ? "text-gray-400 cursor-not-allowed"
+                  : "text-primary hover:bg-primary hover:text-white cursor-pointer"
+              }`}
+              aria-label="Decrease quantity"
+            >
+              -
+            </button>
 
-          {/* Quantity Display */}
-          <span className="px-4 font-medium">{quantity}</span>
+            <span className="px-4 font-medium">{quantity}</span>
 
-          {/* Increase Button */}
-          <button
-            onClick={increaseQuantity}
-            disabled={quantity === availableQuantity}
-            className={`w-6 h-6 flex items-center justify-center text-lg rounded-full transition-colors ${
-              quantity === availableQuantity
-                ? "text-gray-400 cursor-not-allowed"
-                : "text-primary hover:bg-primary hover:text-white cursor-pointer"
-            }`}
-            aria-label="Increase quantity"
-          >
-            +
-          </button>
-        </div>
+            <button
+              onClick={increaseQuantity}
+              disabled={quantity === availableQuantity}
+              className={`w-6 h-6 flex items-center justify-center text-lg rounded-full transition-colors ${
+                quantity === availableQuantity
+                  ? "text-gray-400 cursor-not-allowed"
+                  : "text-primary hover:bg-primary hover:text-white cursor-pointer"
+              }`}
+              aria-label="Increase quantity"
+            >
+              +
+            </button>
+          </div>
 
-        {/* Stock message */}
-        {availableQuantity > 0 && (
+          {/* Stock Message */}
           <span className="text-xs text-gray-500">
             Only{" "}
             <span
@@ -77,8 +75,10 @@ const ProductQuantity = ({
             </span>
             ! Don&apos;t miss out.
           </span>
-        )}
-      </div>
+        </div>
+      ) : (
+        <p className="text-sm text-red-600 font-medium">Out of stock</p>
+      )}
     </div>
   );
 };
