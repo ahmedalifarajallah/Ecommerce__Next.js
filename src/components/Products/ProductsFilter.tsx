@@ -1,78 +1,109 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FilterInput from "../FilterInput";
 import FilterSelect from "../FilterSelect";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import useWixClient from "@/hooks/useWixClient";
+import { collections } from "@wix/stores";
 
 // Filter options config
 const filterConfig = {
   types: [
-    { value: "type1", label: "Type 1" },
-    { value: "type2", label: "Type 2" },
-    { value: "type3", label: "Type 3" },
+    { value: "physical", label: "Physical" },
+    { value: "digital", label: "Digital" },
   ],
-  sizes: [
-    { value: "s", label: "Small" },
-    { value: "md", label: "Medium" },
-    { value: "lg", label: "Large" },
-    { value: "xl", label: "X-Large" },
-    { value: "2xl", label: "2X-Large" },
-  ],
-  colors: [
-    { value: "red", label: "Red" },
-    { value: "green", label: "Green" },
-    { value: "blue", label: "Blue" },
-  ],
-  categories: [
-    { value: "category1", label: "Category 1" },
-    { value: "category2", label: "Category 2" },
-    { value: "category3", label: "Category 3" },
-  ],
+  // sizes: [
+  //   { value: "s", label: "Small" },
+  //   { value: "md", label: "Medium" },
+  //   { value: "lg", label: "Large" },
+  //   { value: "xl", label: "X-Large" },
+  //   { value: "2xl", label: "2X-Large" },
+  // ],
+  // colors: [
+  //   { value: "red", label: "Red" },
+  //   { value: "green", label: "Green" },
+  //   { value: "blue", label: "Blue" },
+  // ],
+  // categories: [
+  //   { value: "category1", label: "Category 1" },
+  //   { value: "category2", label: "Category 2" },
+  //   { value: "category3", label: "Category 3" },
+  // ],
   sortOptions: [
-    { value: "low", label: "Low to High (price)" },
-    { value: "high", label: "High to Low (price)" },
+    { value: "asc price", label: "Low to High (price)" },
+    { value: "desc price", label: "High to Low (price)" },
   ],
 };
 
 const ProductsFilter = () => {
+  const wixClient = useWixClient();
+  const [categories, setCategories] = useState<
+    { value: string; label: string }[]
+  >([]);
   const [filters, setFilters] = useState({
-    product_type: "",
+    productType: "",
     min_price: "",
     max_price: "",
-    product_size: "",
-    product_color: "",
-    product_category: "",
+    // product_size: "",
+    // product_color: "",
+    category: "",
     product_sort: "",
   });
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const { replace } = useRouter();
 
   const handleFilterChange = (
     e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>
   ) => {
     const { name, value } = e.target;
     setFilters((prev) => ({ ...prev, [name]: value }));
+
+    const params = new URLSearchParams(searchParams);
+    params.set(name, value);
+    replace(`${pathname}?${params.toString()}`);
   };
+
+  useEffect(() => {
+    const getCategories = async () => {
+      try {
+        const res = await wixClient.collections.queryCollections().find();
+        const handledCategories = res.items.map((item) => ({
+          value: item.slug ?? "",
+          label: item.name ?? "",
+        }));
+
+        setCategories(handledCategories || []);
+      } catch (error) {
+        console.error("Failed to fetch categories:", error);
+      }
+    };
+    getCategories();
+  }, [wixClient.collections]);
 
   const handleReset = () => {
     setFilters({
-      product_type: "",
+      productType: "",
       min_price: "",
       max_price: "",
-      product_size: "",
-      product_color: "",
-      product_category: "",
+      // product_size: "",
+      // product_color: "",
+      category: "",
       product_sort: "",
     });
+    replace(`${pathname}`);
   };
 
   return (
     <div className="my-10 flex flex-wrap gap-4">
       {/* Type Filter */}
       <FilterSelect
-        id="product_type"
-        name="product_type"
+        id="productType"
+        name="productType"
         label="Type"
         options={filterConfig.types}
         onChange={handleFilterChange}
-        value={filters.product_type}
+        value={filters.productType}
       />
 
       {/* Price Range */}
@@ -94,33 +125,33 @@ const ProductsFilter = () => {
       </div>
 
       {/* Size Filter */}
-      <FilterSelect
+      {/* <FilterSelect
         id="product_size"
         name="product_size"
         label="Size"
         options={filterConfig.sizes}
         onChange={handleFilterChange}
         value={filters.product_size}
-      />
+      /> */}
 
       {/* Color Filter */}
-      <FilterSelect
+      {/* <FilterSelect
         id="product_color"
         name="product_color"
         label="Color"
         options={filterConfig.colors}
         onChange={handleFilterChange}
         value={filters.product_color}
-      />
+      /> */}
 
       {/* Category Filter */}
       <FilterSelect
-        id="product_category"
-        name="product_category"
+        id="category"
+        name="category"
         label="Category"
-        options={filterConfig.categories}
+        options={categories}
         onChange={handleFilterChange}
-        value={filters.product_category}
+        value={filters.category}
       />
 
       {/* Sort Filter */}

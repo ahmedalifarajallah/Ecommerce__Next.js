@@ -15,7 +15,7 @@ const ProductsListPage = async ({ searchParams }: any) => {
   } catch (error) {
     console.log(error);
   }
-
+  // **TODO **Add the Lowest price to the product
   return (
     <div className="container">
       <Banner />
@@ -23,6 +23,7 @@ const ProductsListPage = async ({ searchParams }: any) => {
       <Suspense fallback={<div>Loading...</div>}>
         {collection?.collection && (
           <ProductsSection
+            searchParams={searchParams}
             title={collection.collection.name ?? "All Products For You"}
             categoryId={
               collection.collection._id ??
