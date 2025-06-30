@@ -29,6 +29,8 @@ const ProductsListPage = async ({ searchParams }: any) => {
               collection.collection._id ??
               process.env.WIX_All_PRODUCTS_COLLECTION_ID!
             }
+            withPagination={true}
+            limit={8}
           />
         )}
       </Suspense>
