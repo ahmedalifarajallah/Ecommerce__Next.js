@@ -6,28 +6,13 @@ import Cart from "../../Cart/Cart";
 import DropDown from "./DropDown";
 
 const NavIcons = () => {
-  const [isProfileOpen, setIsProfileOpen] = useState(false);
-  const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
-  const [isCartOpen, setIsCartOpen] = useState(false);
   const [isLoggedIn, setIsLoggerIn] = useState(true);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const handleProfileClick = () => {
-    setIsNotificationsOpen(false);
-    setIsCartOpen(false);
-    setIsProfileOpen(!isProfileOpen);
-  };
-
-  const handleCartClick = () => {
-    setIsProfileOpen(false);
-    setIsNotificationsOpen(false);
-    setIsCartOpen(!isCartOpen);
-  };
-
-  const handleNotificationsClick = () => {
-    setIsProfileOpen(false);
-    setIsCartOpen(false);
-    setIsNotificationsOpen(!isNotificationsOpen);
+  // Toggle dropdown
+  const toggleDropdown = (dropdown: string) => {
+    setOpenDropdown((prev) => (prev === dropdown ? null : dropdown));
   };
 
   // Close dropdown on click outside
@@ -37,9 +22,7 @@ const NavIcons = () => {
         containerRef.current &&
         !containerRef.current.contains(event.target as Node)
       ) {
-        setIsProfileOpen(false);
-        setIsNotificationsOpen(false);
-        setIsCartOpen(false);
+        setOpenDropdown(null);
       }
     };
 
@@ -61,22 +44,19 @@ const NavIcons = () => {
         width={24}
         height={24}
         className="cursor-pointer"
-        onClick={handleProfileClick}
+        onClick={() => toggleDropdown("profile")}
       />
-      {isProfileOpen && isLoggedIn ? (
+      {openDropdown === "profile" && (
         <DropDown>
-          <div className="mx-4">
-            <Link href={"/profile"}>Profile</Link>
-            <div className="mt-2 cursor-pointer">Logout</div>
-          </div>
+          {isLoggedIn ? (
+            <div className="mx-4">
+              <Link href={"/profile"}>Profile</Link>
+              <div className="mt-2 cursor-pointer">Logout</div>
+            </div>
+          ) : (
+            <Link href={"/auth/login"}>Login</Link>
+          )}
         </DropDown>
-      ) : (
-        isProfileOpen &&
-        !isLoggedIn && (
-          <DropDown>
-            <Link href={"/profile"}>Login</Link>
-          </DropDown>
-        )
       )}
       {/* Notifications */}
       <Image
@@ -85,9 +65,9 @@ const NavIcons = () => {
         width={24}
         height={24}
         className="cursor-pointer"
-        onClick={handleNotificationsClick}
+        onClick={() => toggleDropdown("notifications")}
       />
-      {isNotificationsOpen && (
+      {openDropdown === "notifications" && (
         <DropDown>
           <p className="text-center w-max text-sm">No notifications</p>
         </DropDown>
@@ -99,9 +79,9 @@ const NavIcons = () => {
         width={24}
         height={24}
         className="cursor-pointer"
-        onClick={handleCartClick}
+        onClick={() => toggleDropdown("cart")}
       />
-      {isCartOpen && (
+      {openDropdown === "cart" && (
         <DropDown>
           <Cart />
         </DropDown>
