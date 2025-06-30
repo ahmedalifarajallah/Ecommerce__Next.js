@@ -6,7 +6,7 @@ import Cart from "../../Cart/Cart";
 import DropDown from "./DropDown";
 
 const NavIcons = () => {
-  const [isLoggedIn, setIsLoggerIn] = useState(true);
+  const [isLoggedIn, setIsLoggerIn] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 

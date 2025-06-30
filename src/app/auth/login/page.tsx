@@ -2,10 +2,12 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+// import { Eye, EyeOff } from "lucide-react";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
@@ -62,7 +64,7 @@ const LoginPage = () => {
             />
           </div>
 
-          <div>
+          <div className="relative">
             <label
               htmlFor="password"
               className="block text-sm font-medium text-gray-600 mb-1"
@@ -71,16 +73,29 @@ const LoginPage = () => {
             </label>
             <input
               id="password"
-              type="password"
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
+              type={showPassword ? "text" : "password"}
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary pr-10"
               placeholder="••••••••"
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
+
+            {/* Show/Hide Toggle */}
+            <button
+              type="button"
+              className="absolute right-3 top-9 text-gray-500 hover:text-gray-700"
+              onClick={() => setShowPassword((prev) => !prev)}
+              tabIndex={-1}
+            >
+              {showPassword ? (
+                <p className="text-xs text-center">Hide</p>
+              ) : (
+                <p className="text-xs text-center">Show</p>
+              )}
+            </button>
           </div>
 
-          {/* Forgot Password Link */}
           <div className="flex justify-end">
             <Link
               href="/auth/reset-password"
