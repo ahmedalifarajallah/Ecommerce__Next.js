@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import useWixClient from "@/hooks/useWixClient";
 
 const ResetPasswordPage = () => {
   const [email, setEmail] = useState("");
@@ -8,6 +9,7 @@ const ResetPasswordPage = () => {
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
+  const wixClient = useWixClient();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -15,14 +17,12 @@ const ResetPasswordPage = () => {
     setError(null);
     setSuccessMessage(null);
 
-    try {
-      // Simulate API call
-      await new Promise((res) => setTimeout(res, 1500));
+    const redirectUri = window.location.href;
 
+    try {
+      const res = wixClient.auth.sendPasswordResetEmail(email, redirectUri);
       // Simulate success
-      setSuccessMessage(
-        "If an account with this email exists, a reset link has been sent."
-      );
+      setSuccessMessage("A reset link has been sent.");
       setEmail("");
     } catch (err) {
       setError("Something went wrong. Please try again.");
@@ -32,7 +32,7 @@ const ResetPasswordPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+    <div className="h-[calc(100vh-5rem)] flex items-center justify-center bg-gray-50 px-4">
       <div className="w-full max-w-sm bg-white rounded-2xl shadow-lg p-8">
         <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
           Reset Password

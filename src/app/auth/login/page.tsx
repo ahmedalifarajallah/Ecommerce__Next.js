@@ -1,7 +1,9 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import useWixClient from "@/hooks/useWixClient";
+import Cookies from "js-cookie";
 // import { Eye, EyeOff } from "lucide-react";
 
 const LoginPage = () => {
@@ -11,6 +13,13 @@ const LoginPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
+  const wixClient = useWixClient();
+
+  useEffect(() => {
+    if (wixClient.auth.loggedIn()) {
+      router.push("/");
+    }
+  }, [wixClient, router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -18,22 +27,34 @@ const LoginPage = () => {
     setError(null);
 
     try {
-      await new Promise((res) => setTimeout(res, 1500));
+      const res = await wixClient.auth.login({ email, password });
+      if (res.loginState === "FAILURE") {
+        const errorMessage = JSON.parse(res.error).message.split(":")[0];
+        setError(errorMessage);
+      }
 
-      if (email === "test@example.com" && password === "password") {
-        router.push("/dashboard");
-      } else {
-        setError("Invalid email or password");
+      if (res.loginState === "SUCCESS") {
+        setError(null);
+        const tokens = await wixClient.auth.getMemberTokensForDirectLogin(
+          res.data.sessionToken
+        );
+        Cookies.set("refreshToken", JSON.stringify(tokens.refreshToken), {
+          expires: 2,
+        });
+
+        wixClient.auth.setTokens(tokens);
+        router.push("/");
       }
     } catch (err) {
       setError("Something went wrong. Please try again.");
+      console.error(err);
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+    <div className="h-[calc(100vh-5rem)] flex items-center justify-center bg-gray-50 px-4">
       <div className="w-full max-w-sm bg-white rounded-2xl shadow-lg p-8">
         <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
           Welcome Back

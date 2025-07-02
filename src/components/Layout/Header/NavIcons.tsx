@@ -4,9 +4,11 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import Cart from "../../Cart/Cart";
 import DropDown from "./DropDown";
+import useWixClient from "@/hooks/useWixClient";
 
 const NavIcons = () => {
-  const [isLoggedIn, setIsLoggerIn] = useState(false);
+  const wixClient = useWixClient();
+  const isLoggedIn = wixClient.auth.loggedIn();
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -31,6 +33,19 @@ const NavIcons = () => {
       document.removeEventListener("click", handleClickOutside);
     };
   }, []);
+
+  // AUTH WITH IX-MANAGED WIX
+  // const wixClient = useWixClient();
+  // const login = async () => {
+  //   const loginRequestData = wixClient.auth.generateOAuthData(
+  //     "http://localhost:3000"
+  //   );
+
+  //   localStorage.setItem("oAuthRedirectData", JSON.stringify(loginRequestData));
+
+  //   const { authUrl } = await wixClient.auth.getAuthUrl(loginRequestData);
+  //   window.location.href = authUrl;
+  // };
 
   return (
     <div
