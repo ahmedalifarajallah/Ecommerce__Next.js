@@ -2,9 +2,10 @@ import Link from "next/link";
 import Menu from "./Menu";
 import Image from "next/image";
 import SearchBar from "./SearchBar";
-import NavIcons from "./NavIcons";
 import React, { useMemo } from "react";
 import { ILink } from "@/interfaces/FooterLinkInterface";
+import dynamic from "next/dynamic";
+const NavIcons = dynamic(() => import("./NavIcons"), { ssr: false });
 
 const HYPER_LINKS: ILink[] = [
   { label: "Home", link: "/" },
@@ -23,7 +24,10 @@ const NavBar = () => {
         <Link href={"/"}>
           <div className="text-2xl tracking-wide">AKL</div>
         </Link>
-        <Menu />
+        <div className="flex items-center gap-4">
+          <NavIcons />
+          <Menu />
+        </div>
       </div>
       {/* Bigger Screens */}
       <div className="hidden md:flex items-center justify-between gap-8 h-full">

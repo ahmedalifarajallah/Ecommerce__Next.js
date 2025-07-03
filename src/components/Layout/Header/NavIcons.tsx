@@ -5,12 +5,15 @@ import { useEffect, useRef, useState } from "react";
 import Cart from "../../Cart/Cart";
 import DropDown from "./DropDown";
 import useWixClient from "@/hooks/useWixClient";
+import Cookies from "js-cookie";
+import { usePathname, useRouter } from "next/navigation";
 
 const NavIcons = () => {
   const wixClient = useWixClient();
   const isLoggedIn = wixClient.auth.loggedIn();
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
 
   // Toggle dropdown
   const toggleDropdown = (dropdown: string) => {
@@ -34,18 +37,12 @@ const NavIcons = () => {
     };
   }, []);
 
-  // AUTH WITH IX-MANAGED WIX
-  // const wixClient = useWixClient();
-  // const login = async () => {
-  //   const loginRequestData = wixClient.auth.generateOAuthData(
-  //     "http://localhost:3000"
-  //   );
-
-  //   localStorage.setItem("oAuthRedirectData", JSON.stringify(loginRequestData));
-
-  //   const { authUrl } = await wixClient.auth.getAuthUrl(loginRequestData);
-  //   window.location.href = authUrl;
-  // };
+  // Logout
+  const logout = async () => {
+    Cookies.remove("refreshToken");
+    const { logoutUrl } = await wixClient.auth.logout(window.location.href);
+    router.push(logoutUrl);
+  };
 
   return (
     <div
@@ -66,7 +63,14 @@ const NavIcons = () => {
           {isLoggedIn ? (
             <div className="mx-4">
               <Link href={"/profile"}>Profile</Link>
-              <div className="mt-2 cursor-pointer">Logout</div>
+              <div
+                className="mt-2 cursor-pointer"
+                onClick={logout}
+                aria-label="Logout"
+                role="button"
+              >
+                Logout
+              </div>
             </div>
           ) : (
             <Link href={"/auth/login"}>Login</Link>

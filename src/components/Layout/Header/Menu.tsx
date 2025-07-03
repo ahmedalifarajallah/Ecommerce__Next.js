@@ -30,7 +30,7 @@ const Menu = () => {
         aria-label="Toggle navigation menu"
       />
       {open && (
-        <div className="absolute bg-black text-white left-0 top-20 w-full h-[calc(100vh-rem)] flex flex-col items-center justify-center gap-8 text-xl z-50">
+        <div className="absolute bg-black text-white left-0 top-20 w-full h-[calc(100vh-5rem)] flex flex-col items-center justify-center gap-8 text-xl z-50">
           {links.map((link, index) => (
             <Link
               href={link.link}
