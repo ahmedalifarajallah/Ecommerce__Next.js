@@ -4,11 +4,13 @@ import { useState } from "react";
 
 const ProductQuantity = ({
   selectedVariants,
+  setQuantity,
+  quantity,
 }: {
   selectedVariants: products.Variant | undefined;
+  setQuantity: (quantity: number) => void;
+  quantity: number;
 }) => {
-  const [quantity, setQuantity] = useState<number>(1);
-
   const availableQuantity = selectedVariants?.stock?.quantity || 0;
   const inStock = selectedVariants?.stock?.inStock && availableQuantity > 0;
 

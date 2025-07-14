@@ -6,7 +6,8 @@ import Cart from "../../Cart/Cart";
 import DropDown from "./DropDown";
 import useWixClient from "@/hooks/useWixClient";
 import Cookies from "js-cookie";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { useCartStore } from "@/hooks/useCartStore";
 
 const NavIcons = () => {
   const wixClient = useWixClient();
@@ -14,6 +15,7 @@ const NavIcons = () => {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+  const { cart, getCart } = useCartStore();
 
   // Toggle dropdown
   const toggleDropdown = (dropdown: string) => {
@@ -36,6 +38,12 @@ const NavIcons = () => {
       document.removeEventListener("click", handleClickOutside);
     };
   }, []);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      getCart(wixClient); // load cart as soon as user is logged in
+    }
+  }, [wixClient, isLoggedIn, getCart]);
 
   // Logout
   const logout = async () => {
@@ -92,14 +100,19 @@ const NavIcons = () => {
         </DropDown>
       )}
       {/* Cart */}
-      <Image
-        src={"/cart.png"}
-        alt={"cart-Img"}
-        width={24}
-        height={24}
-        className="cursor-pointer"
-        onClick={() => toggleDropdown("cart")}
-      />
+      <div className="cart-icon relative">
+        <Image
+          src={"/cart.png"}
+          alt={"cart-Img"}
+          width={24}
+          height={24}
+          className="cursor-pointer"
+          onClick={() => toggleDropdown("cart")}
+        />
+        <span className="absolute top-[-10px] right-[-10px] w-5 h-5 bg-primary text-xs flex items-center justify-center text-white rounded-full">
+          {cart.lineItems?.length || 0}
+        </span>
+      </div>
       {openDropdown === "cart" && (
         <DropDown>
           <Cart />

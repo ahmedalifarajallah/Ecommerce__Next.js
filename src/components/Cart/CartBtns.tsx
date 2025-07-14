@@ -1,5 +1,3 @@
-import React from "react";
-
 const CartBtns = () => {
   return (
     <div className="flex justify-between text-sm gap-4">

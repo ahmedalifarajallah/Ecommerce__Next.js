@@ -1,0 +1,23 @@
+@keyframes marquee {
+  0% {
+    transform: translateX(-20%);
+    -webkit-transform: translateX(-20%);
+    -moz-transform: translateX(-20%);
+    -ms-transform: translateX(-20%);
+    -o-transform: translateX(-20%);
+  }
+  100% {
+    transform: translateX(100%);
+    -webkit-transform: translateX(100%);
+    -moz-transform: translateX(100%);
+    -ms-transform: translateX(100%);
+    -o-transform: translateX(100%);
+  }
+}
+
+.animate-marquee {
+  display: inline-block;
+  letter-spacing: 1.5px;
+  animation: marquee 6s linear infinite;
+  -webkit-animation: marquee 6s linear infinite;
+}

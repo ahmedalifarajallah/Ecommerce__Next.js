@@ -7,6 +7,8 @@ import ProductPrice from "./ProductPrice";
 import ProductAdditionalInfo from "./ProductAdditionalInfo";
 import DOMPurify from "isomorphic-dompurify";
 import { useEffect, useMemo, useState } from "react";
+import useWixClient from "@/hooks/useWixClient";
+import { useCartStore } from "@/hooks/useCartStore";
 
 const ProductDetails = ({ product }: { product: products.Product }) => {
   const [selectedOptions, setSelectedOptions] = useState<{
@@ -14,6 +16,9 @@ const ProductDetails = ({ product }: { product: products.Product }) => {
   }>({});
   const [selectedVariants, setSelectedVariants] = useState<products.Variant>();
   const variants = useMemo(() => product.variants || [], [product.variants]);
+  const [quantity, setQuantity] = useState<number>(1);
+  const wixClient = useWixClient();
+  const { addItem } = useCartStore();
 
   // Find the variant with the lowest price initially
   const lowestPriceVariant = useMemo(() => {
@@ -106,10 +111,24 @@ const ProductDetails = ({ product }: { product: products.Product }) => {
         isVariantInStock={isVariantInStock}
       />
       {/* Product Quantity */}
-      <ProductQuantity selectedVariants={selectedVariants} />
+      <ProductQuantity
+        selectedVariants={selectedVariants}
+        quantity={quantity}
+        setQuantity={setQuantity}
+      />
       {/* Product Buttons */}
       <div className="product-btns my-3 flex items-center gap-4 text-sm border-b pb-6">
-        <button className="rounded-full px-4 py-2 bg-primary text-white hover:bg-transparent hover:text-primary transition-colors duration-300 ease-in-out border border-primary">
+        <button
+          onClick={() =>
+            addItem(
+              wixClient,
+              product._id ?? "",
+              selectedVariants?._id ?? "",
+              quantity
+            )
+          }
+          className="rounded-full px-4 py-2 bg-primary text-white hover:bg-transparent hover:text-primary transition-colors duration-300 ease-in-out border border-primary"
+        >
           Add to cart
         </button>
         <button className="rounded-full px-4 py-2 bg-primary text-white hover:bg-transparent hover:text-primary transition-colors duration-300 ease-in-out border border-primary">

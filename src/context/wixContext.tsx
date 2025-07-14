@@ -3,6 +3,7 @@ import { createClient, OAuthStrategy } from "@wix/sdk";
 import { products, collections } from "@wix/stores";
 import Cookies from "js-cookie";
 import { createContext } from "react";
+import { currentCart } from "@wix/ecom";
 
 const refreshToken = JSON.parse(Cookies.get("refreshToken") || "{}");
 
@@ -10,7 +11,7 @@ const myWixClient = createClient({
   modules: {
     products,
     collections,
-    // currentCart,
+    currentCart,
   },
   auth: OAuthStrategy({
     clientId: process.env.NEXT_PUBLIC_WIX_CLIENT_ID!,

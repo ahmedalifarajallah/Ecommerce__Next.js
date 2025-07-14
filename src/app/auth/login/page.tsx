@@ -29,7 +29,7 @@ const LoginPage = () => {
     try {
       const res = await wixClient.auth.login({ email, password });
       if (res.loginState === "FAILURE") {
-        const errorMessage = JSON.parse(res.error).message.split(":")[0];
+        const errorMessage = "Email Or Password Is Incorrect";
         setError(errorMessage);
       }
 

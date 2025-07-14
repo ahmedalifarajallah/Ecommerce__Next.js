@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@wix/ecom": "^1.0.1233",
+    "@wix/members": "^1.0.300",
     "@wix/sdk": "^1.15.23",
     "@wix/stores": "^1.0.474",
     "isomorphic-dompurify": "^2.25.0",
@@ -16,7 +18,8 @@
     "next": "14.2.2",
     "react": "^18",
     "react-dom": "^18",
-    "swiper": "^11.2.8"
+    "swiper": "^11.2.8",
+    "zustand": "^5.0.6"
   },
   "devDependencies": {
     "@types/js-cookie": "^3.0.6",

@@ -4,6 +4,7 @@ import "./globals.css";
 import NavBar from "@/components/Layout/Header/NavBar";
 import Footer from "@/components/Layout/Footer/Footer";
 import { WixClientContextProvider } from "@/context/wixContext";
+import VerifyAccountWarning from "@/components/VerifyAccount/VerifyAccountWarning";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,6 +22,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <WixClientContextProvider>
+          <VerifyAccountWarning />
           <NavBar />
           {children}
           <Footer />
