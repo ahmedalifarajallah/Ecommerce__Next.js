@@ -110,7 +110,7 @@ const NavIcons = () => {
           onClick={() => toggleDropdown("cart")}
         />
         <span className="absolute top-[-10px] right-[-10px] w-5 h-5 bg-primary text-xs flex items-center justify-center text-white rounded-full">
-          {cart.lineItems?.length || 0}
+          {cart?.lineItems ? cart.lineItems.length : 0}
         </span>
       </div>
       {openDropdown === "cart" && (

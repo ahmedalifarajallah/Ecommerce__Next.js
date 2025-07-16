@@ -6,7 +6,7 @@ import useWixClient from "@/hooks/useWixClient";
 
 const CartItem = ({ item }: { item: currentCart.LineItem }) => {
   const wixClient = useWixClient();
-  const { removeItem } = useCartStore();
+  const { removeItem, isLoading } = useCartStore();
   return (
     <div className="flex justify-between gap-4 my-4">
       <Image
@@ -33,8 +33,11 @@ const CartItem = ({ item }: { item: currentCart.LineItem }) => {
         <div className="product-quantity__cart flex justify-between items-center mt-3">
           <span className="text-gray-400">Qty: {item.quantity}</span>
           <span
-            className="cursor-pointer text-blue-600"
+            className="text-blue-600"
+            style={{ cursor: isLoading ? "not-allowed" : "pointer" }}
             onClick={() => removeItem(wixClient, item._id as string)}
+            role="button"
+            aria-label="Remove item from cart"
           >
             Remove
           </span>

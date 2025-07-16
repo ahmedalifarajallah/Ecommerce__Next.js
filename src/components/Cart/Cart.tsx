@@ -8,7 +8,7 @@ import { useCartStore } from "@/hooks/useCartStore";
 const Cart = () => {
   // TEMPORARY STATE
   // const cartItems = true;
-  const { cart, getCart } = useCartStore();
+  const { cart, getCart, isLoading } = useCartStore();
 
   const wixClient = useWixClient();
 
@@ -18,7 +18,7 @@ const Cart = () => {
 
   return (
     <div className="cart w-full">
-      {!cart.lineItems ? (
+      {!cart || !cart?.lineItems ? (
         <p className="font-semibold text-center">Cart Is Empty</p>
       ) : (
         <>
@@ -40,7 +40,7 @@ const Cart = () => {
             Shipping and taxes calculated at checkout
           </p>
           {/* Cart Buttons */}
-          <CartBtns />
+          <CartBtns isLoading={isLoading} />
         </>
       )}
     </div>
